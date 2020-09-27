@@ -1,9 +1,28 @@
 #MenuTitle: KernBot
 # -*- coding: utf-8 -*-
 __doc__="""
-A Kerning Tool
+KernBot.IO is a GlyphsApp plugin that will improve your productivity and save you time during the metric spacing and kerning phases of your font development workflow.
+
+Out of the box, KernBotIO displays an interface aiming to center your focus on the space between your letterforms. GlyphsApp is a fantastic tool, but it emphasizes the current glyph and does not give justice to the context surrounding your glyph-shapes. KernBotIO re-centers the space between your letterforms, allowing you to quickly view any letter combination that uses your chosen kerning pair combination.
+
+KernBotIO helps you by displaying lists of all the kerning-keys within your font. It then lists every letter and all possible letter combinations that utilize the selected kerning-key-pair. It also makes use of optional buttons to display your kerning in context, including a spacing string sequence maker, a word generator, and even more under-development!
+
+To contribute, please create a branch on the GitHub repository:
+https://github.com/joeygrable94/KernBot.io
+
+Created by Joey Grable
+@JoeyGrable94
+www.JoeyGrable.com
 """
-# imports
+
+# ---------------------------------------------------------------------------------------------------------
+# HELP DOCS
+# https://docu.glyphsapp.com/
+# https://ts-vanilla.readthedocs.io/en/latest/objects/List.html#list-item-cells
+
+# ---------------------------------------------------------------------------------------------------------
+# IMPORTS
+
 import os
 import math
 import json
@@ -11,11 +30,17 @@ import random
 from vanilla import FloatingWindow, TextBox, List, RadioGroup, EditText, CheckBox, Button, VerticalLine, HorizontalLine
 from vanilla.test.testAll import Test
 
+# ---------------------------------------------------------------------------------------------------------
+# GLOBAL DATA SETS
+
 # return a dictionary of all english words
 ALL_WORDS = []
-OXFORD_SRC = './resources/OxfordEnglishDictionary.txt'
+OXFORD_SRC = "./resources/OxfordEnglishDictionary.txt"
 with open(OXFORD_SRC) as json_words:
 	ALL_WORDS = json.load(json_words)
+
+# ---------------------------------------------------------------------------------------------------------
+# GLOBAL FUNCTIONS
 
 # returns dictionary of all Kerning Group Keys and a list of associated glyphs
 def makeKerningGroups(fGlyphs):
@@ -38,20 +63,20 @@ def glyphToKerningGroups(kGroups):
 	g2g1 = {}
 	g2g2 = {}	
 	for kGroupKey, kGroupGlyphs in kGroups.items():
-		if '@MMK_R_' in kGroupKey:
+		if "@MMK_R_" in kGroupKey:
 			if kGroupKey in g2g1:
-				print('Double glyph in RIGHT kern groups', kGroupKey, kGroupGlyphs, g2g1[kGroupKey] )
+				print("Double glyph in RIGHT kern groups", kGroupKey, kGroupGlyphs, g2g1[kGroupKey] )
 			else:
 				g2g1[kGroupKey] = kGroupGlyphs
-		elif '@MMK_L_' in kGroupKey:
+		elif "@MMK_L_" in kGroupKey:
 			if kGroupKey in g2g2:
-				print('Double glyph in LEFT kern groups', kGroupKey, kGroupGlyphs, g2g2[kGroupKey] )
+				print("Double glyph in LEFT kern groups", kGroupKey, kGroupGlyphs, g2g2[kGroupKey] )
 			else:
 				g2g2[kGroupKey] = kGroupGlyphs
 	# return tuple of Left and Right Kern Groups
 	return g2g1, g2g2
 
-
+# ---------------------------------------------------------------------------------------------------------
 # KERNBOT CLASS
 class KernBot:
 
@@ -84,12 +109,12 @@ class KernBot:
 		self.initComplete = False
 
 		# Highly Used Letter in Draw F(x)s
-		self.spaceLetter = self._getCurrentLayerForLetter(cGlyph=self.font.glyphs['space'])
+		self.spaceLetter = self._getCurrentLayerForLetter(cGlyph=self.font.glyphs["space"])
 
 		# Vanilla Window Obj
 		self.w = FloatingWindow(
 			(50,100,w,h),
-			'KernBot.io',
+			"KernBot.io",
 			autosaveName="com.joeygrable.kernbot.ui"
 		)
 		# Vanilla Element Styles
@@ -97,7 +122,7 @@ class KernBot:
 		KgLabelStyle = dict(alignment="center", sizeStyle="mini")
 		KgBtnStyles = dict(sizeStyle="regular")
 
-		# ------------------------------------------------------------------------------------------------
+		# -------------------------------------------------------------------------------------------------
 		# create Left and Right list of Kerning Groups keys
 		self.w.leftKernTxt = TextBox( (m, m, col_1_of_2, tbh), "Right KERN KEY" )
 		self.w.rightKernTxt = TextBox( (col_2_of_2, m, -m, tbh), "Left KERN KEY" )
@@ -118,33 +143,35 @@ class KernBot:
 		# make a cross reference for glyphName --> (kernGroupOnLeft, kernGroupOnRight)
 		self.glyph2Group1, self.glyph2Group2 = glyphToKerningGroups( self.kernGroups )
 
-		# ------------------------------------------------------------------------------------------------
+		# -------------------------------------------------------------------------------------------------
 		# populate List elements with initial font data
 		self.leftKernKeysList = self._getCleanKernKeysAsList( self.glyph2Group1.keys() )
 		self.leftKernKeysList.sort(key=lambda x:(x.islower(), x))
 		self.rightKernKeysList = self._getCleanKernKeysAsList( self.glyph2Group2.keys() )
 		self.rightKernKeysList.sort(key=lambda x:(x.islower(), x))
 
-		# ------------------------------------------------------------------------------------------------
+		# -------------------------------------------------------------------------------------------------
 		# display buttons for outputing kern/glyph strings to screen
 		# divider line
 		self.w.listsHorizontalDvd = HorizontalLine( (m, tbh*3+lsh*2+m*2.5, w-m-m, 1) )
 		# label text for this section of the app
-		self.w.openNewTabToDisplayLabel = TextBox( (m, tbh*3+lsh*2+m*3.5, w-m-m, tbh), "Open New Tab and Display:" )
+		self.w.drawGlyphsActionsLabel = TextBox( (m, tbh*3+lsh*2+m*3.5, w-m-m, tbh), "Draw To Window Actions:" )
 		# show current letter pair
-		self.w.showCurrentLetterPair = Button( (m, tbh*4+lsh*2+m*3.5, col_1_of_2, bth), 'show letter pair', callback=self.drawCurrentLetterPair, **KgBtnStyles )
-		# show current letter pair in word
-		#self.w.showCurrentLetterPairInWord = Button( (col_2_of_2, tbh*4+lsh*2+m*3.5, -m, bth), 'show pair in word', callback=self.drawCurrentLetterPairInWord, **KgBtnStyles )
-		# show list of all matching words
-		self.w.showCurrentLetterPairWords = List( (col_2_of_2, tbh*4+lsh*2+m*3.5, -m, bth), [], selectionCallback=self.drawNewSelectedMatchingWord )
-		# show current letter pair in spacing string (nnnonn, nonono)
-		self.w.showCurrentLetterPairSpacingString = Button( (m, tbh*5+lsh*2+m*4.5, col_1_of_2, bth), 'spacing string', callback=self.drawCurrentPairInSpacingString, **KgBtnStyles )
+		self.w.showCurrentLetterPair = Button( (m, tbh*4+lsh*2+m*3.5, col_1_of_2, bth), "current letter pair", callback=self.drawCurrentLetterPair, **KgBtnStyles )
+		# label text for possible kern pairs list
+		self.w.allPossibleLetterPairsLabel = TextBox( (m, tbh*5+lsh*2+m*4.25, col_1_of_2, tbh), "all possible letter pairs:", sizeStyle="mini" )
 		# show all letter pairs with kern pair
-		self.w.showAllLetterPairsWithKerning = Button( (col_2_of_2, tbh*5+lsh*2+m*4.5, -m, bth), 'all kerning pairs', callback=self.drawAllPossibleLetterPairsWithKerning, **KgBtnStyles )
+		self.w.showAllLetterPairsWithKerning = List( (m, tbh*5+lsh*2+m*6, col_1_of_2, lsh*0.76), [], selectionCallback=self.drawSelectedAllPossibleLetterPairsWithKerning)
+		# show a randomly selected word from list
+		self.w.showRandomSelectedWordBtn = Button( (col_2_of_2, tbh*4+lsh*2+m*3.5, -m, bth), "show random word", callback=self.drawRandomSelectedMatchingWord )
+		# label text for matching words list
+		self.w.allMatchingWordsLabel  = TextBox( (col_2_of_2, tbh*5+lsh*2+m*4.25, -m, tbh), "all words conaining pair:", sizeStyle="mini" )
+		# show list of all matching words
+		self.w.showAllMatchingWords = List( (col_2_of_2, tbh*5+lsh*2+m*6, -m, lsh*0.76), [], selectionCallback=self.drawNewSelectedMatchingWord )
 		# divider line
-		self.w.currentGlyphsHorizontalDvd = HorizontalLine( (m, -pb-m, w-m-m, 1) )
+		self.w.drawGlyphsActionsHorizontalDvd = HorizontalLine( (m, -pb-m, w-m-m, 1) )
 
-		# ------------------------------------------------------------------------------------------------
+		# -------------------------------------------------------------------------------------------------
 		# display the current selected GLYPHS, their METRIC Keys/Values, and KERNING Pair/Value 
 		# show the current left glyph
 		self.w.currentLeftGlyph = TextBox( (0, -pb, w/5, tbh), "H", **KgValueStyle )
@@ -176,26 +203,26 @@ class KernBot:
 		self.w.currentRightGlyphUClabel = TextBox( (-w/5, -pb+tbh*1.8, -0, tbh), "RIGHT GLYPH", **KgLabelStyle )
 		# buttons for kerning in steps. Round if kerning is not a multiple of a step.
 		# LEFT Glyph RIGHT Metric Value
-		self.w.LgRmBtnPlus = Button( (w/5+((w/5)/2), -pb+tbh*1.75, (w/5)/2, bth), '+', callback=self.leftGlyphRightMetricPlus, **KgBtnStyles )
-		self.w.LgRmBtnMinus = Button( (w/5, -pb+tbh*1.75, (w/5)/2, bth), '-', callback=self.leftGlyphRightMetricMinus, **KgBtnStyles )
+		self.w.LgRmBtnPlus = Button( (w/5+((w/5)/2), -pb+tbh*1.75, (w/5)/2, bth), "+", callback=self.leftGlyphRightMetricPlus, **KgBtnStyles )
+		self.w.LgRmBtnMinus = Button( (w/5, -pb+tbh*1.75, (w/5)/2, bth), "-", callback=self.leftGlyphRightMetricMinus, **KgBtnStyles )
 		# LEFT+RIGHT Kerning Pair Value
-		self.w.KernPairBtnPlus = Button( (w/5+w/5+((w/5)/2), -pb+tbh*1.75, (w/5)/2, bth), '+', callback=self.glyphsKerningPairPlus, **KgBtnStyles )
-		self.w.KernPairBtnMinus = Button( (w/5+w/5, -pb+tbh*1.75, (w/5)/2, bth), '-', callback=self.glyphsKerningPairMinus, **KgBtnStyles )
+		self.w.KernPairBtnPlus = Button( (w/5+w/5+((w/5)/2), -pb+tbh*1.75, (w/5)/2, bth), "+", callback=self.glyphsKerningPairPlus, **KgBtnStyles )
+		self.w.KernPairBtnMinus = Button( (w/5+w/5, -pb+tbh*1.75, (w/5)/2, bth), "-", callback=self.glyphsKerningPairMinus, **KgBtnStyles )
 		# RIGHT Glyph LEFT Metric Value
-		self.w.RgLmBtnPlus = Button( (-w/5-w/5+((w/5)/2), -pb+tbh*1.75, (w/5)/2, bth), '+', callback=self.rightGlyphLeftMetricPlus, **KgBtnStyles )
-		self.w.RgLmBtnMinus = Button( (-w/5-w/5, -pb+tbh*1.75, (w/5)/2, bth), '-', callback=self.rightGlyphLeftMetricMinus, **KgBtnStyles )
+		self.w.RgLmBtnPlus = Button( (-w/5-w/5+((w/5)/2), -pb+tbh*1.75, (w/5)/2, bth), "+", callback=self.rightGlyphLeftMetricPlus, **KgBtnStyles )
+		self.w.RgLmBtnMinus = Button( (-w/5-w/5, -pb+tbh*1.75, (w/5)/2, bth), "-", callback=self.rightGlyphLeftMetricMinus, **KgBtnStyles )
 
-		# ----------------------------------------------------------------------------------------
+		# -------------------------------------------------------------------------------------------------
 		# addCallbacks and listen to CONSTANTS
-		#Glyphs.addCallback( self.documentwassaved, DOCUMENTWASSAVED )
-		#Glyphs.addCallback( self.drawbackground, DRAWBACKGROUND )
 		
 		# load initial ALL_WORDS dataset
 		self.allMatchingWords = []
+		self.allPossibleGlyphPairs = []
+		self.allPossibleLetterPairs = []
 		self.currentLetterPair = None
 
 		# run initializing functions
-		self.w.bind('close', self.closeCleanUp) # call if window closes
+		self.w.bind("close", self.closeCleanUp) # call if window closes
 		self.updating = False # Flag to avoid recursive Updating
 
 		# fill the controls with real values (ie. Lists)
@@ -213,7 +240,7 @@ class KernBot:
 		if not self.updating: # only act if not already updating
 			self.updating = True # set updating Flag check
 			
-			# ----- GET LEFT Kern Keys ----------------------------------------------
+			# ----- GET LEFT Kern Keys -------------------------------------------------------------------
 			# fill the left kern list with kern keys (unfiltered)
 			self.w.leftKerns.set( self.leftKernKeysList )
 			# select top item in list if item not already selected
@@ -223,9 +250,9 @@ class KernBot:
 			else:
 				lk_KeySelect = self.w.leftKerns.getSelection()[0]
 
-			# ----- GET LEFT Glyphs w/ key ------------------------------------------
+			# ----- GET LEFT Glyphs w/ key ---------------------------------------------------------------
 			lk_KeyFind = self.w.leftKerns[lk_KeySelect]
-			lk_glyphs = self._getGlyphNamesListFromObj( self._getGlyphsWithKernKey('L', lk_KeyFind) )
+			lk_glyphs = self._getGlyphNamesListFromObj( self._getGlyphsWithKernKey("L", lk_KeyFind) )
 			lk_glyphs.sort(key=lambda x:(x.islower(), x))
 			# fill the left glyphs list with glyphs with matching kern key (unfiltered)
 			self.w.leftGlyphsList.set( lk_glyphs )
@@ -236,7 +263,7 @@ class KernBot:
 			else:
 				leftCharSelect = int(self.w.leftGlyphsList.getSelection()[0])
 			
-			# ----- GET RIGHT Kern Keys ----------------------------------------------
+			# ----- GET RIGHT Kern Keys -------------------------------------------------------------------
 			# fill the right kern list with kern keys (unfiltered)
 			self.w.rightKerns.set( self.rightKernKeysList )
 			# select top item in list if item not already selected
@@ -246,9 +273,9 @@ class KernBot:
 			else:
 				rk_KeySelect = self.w.rightKerns.getSelection()[0]
 
-			# ----- GET RIGHT Glyphs w/ key ------------------------------------------
+			# ----- GET RIGHT Glyphs w/ key ---------------------------------------------------------------
 			rk_KeyFind = self.w.rightKerns[rk_KeySelect]
-			rk_glyphs = self._getGlyphNamesListFromObj( self._getGlyphsWithKernKey('R', rk_KeyFind) )
+			rk_glyphs = self._getGlyphNamesListFromObj( self._getGlyphsWithKernKey("R", rk_KeyFind) )
 			rk_glyphs.sort(key=lambda x:(x.islower(), x))
 			# fill the right glyphs list with glyphs with matching kern key (unfiltered)
 			self.w.rightGlyphsList.set( rk_glyphs )
@@ -259,7 +286,7 @@ class KernBot:
 			else:
 				rightCharSelect = int(self.w.rightGlyphsList.getSelection()[0])
 
-			# ----- LEFT Glyph -------------------------------------------------------
+			# ----- LEFT Glyph ----------------------------------------------------------------------------
 			leftGlyph = self._getGlyphFromCharStr( lk_glyphs[leftCharSelect] )
 			leftGlyphLayer = leftGlyph.layers[self.selectedMaster.id]
 			leftGlyphName = str(leftGlyph.name)
@@ -269,7 +296,7 @@ class KernBot:
 			self.actvGlyphLeft = leftGlyph
 			self.actvLeftKernKey = lk_KeyFind
 
-			# ----- RIGHT Glyph ------------------------------------------------------
+			# ----- RIGHT Glyph ---------------------------------------------------------------------------
 			rightGlyph = self._getGlyphFromCharStr( rk_glyphs[rightCharSelect] )
 			rightGlyphLayer = rightGlyph.layers[self.selectedMaster.id]
 			rightGlyphName = str(rightGlyph.name)
@@ -279,9 +306,9 @@ class KernBot:
 			self.actvGlyphRight = rightGlyph
 			self.actvRightKernKey = rk_KeyFind
 
-			# ----- KERNING PAIR Information -----------------------------------------
+			# ----- KERNING PAIR Information --------------------------------------------------------------
 			kernPairKey = "%s | %s" % (lk_KeyFind, rk_KeyFind)
-			kernAmt = Glyphs.font.kerningForPair( self.selectedMaster.id, '@MMK_L_%s' % lk_KeyFind, '@MMK_R_%s' % rk_KeyFind )
+			kernAmt = Glyphs.font.kerningForPair( self.selectedMaster.id, "@MMK_L_%s" % lk_KeyFind, "@MMK_R_%s" % rk_KeyFind )
 			if kernAmt > 100:
 				kernAmt = 0
 			if kernAmt > 0:
@@ -291,7 +318,7 @@ class KernBot:
 			elif kernAmt < 0:
 				kernPairVal = "- %s" % str(kernAmt)[1:]
 
-			# ----- SET Glyphs Metric & Kerning Information --------------------------
+			# ----- SET Glyphs Metric & Kerning Information -----------------------------------------------
 			# LEFT Glyph 
 			self.w.currentLeftGlyph.set( leftGlyphName )
 			self.w.currentLeftGlyphUC.set( leftGlyphUC )
@@ -306,11 +333,13 @@ class KernBot:
 			self.w.currentRightGlyphLeftMetricVal.set( rightGlyphLeftSB )
 			self.w.currentRightGlyphLeftMetricKey.set( rightGlyphLeftMetricKey )
 
-			# ----- UPDATE WORD DATA SET ---------------------------------------------
+			# ----- UPDATE DATA SETS ----------------------------------------------------------------------
 			# if initComplete = False, first time running updater
 			if not self.initComplete:
 				# set current letter pair
 				self.currentLetterPair = leftGlyphName+rightGlyphName
+				# set all possible glyph pairs
+				self.allPossibleGlyphPairs = self._determineAllPossibleLetterPairsWithKerning()
 				# calculate initial matching words list
 				self.allMatchingWords = self._determineMatchingWordsContaining( leftGlyphName, rightGlyphName )
 			# not our first rodeo in the updater
@@ -323,41 +352,55 @@ class KernBot:
 				if not oldPair == newPair:
 					# set new current letter pair
 					self.currentLetterPair = newPair
+					# set all possible glyph pairs
+					self.allPossibleGlyphPairs = self._determineAllPossibleLetterPairsWithKerning()
 					# recalc all matching words list
 					self.allMatchingWords = self._determineMatchingWordsContaining( leftGlyphName, rightGlyphName )
-			
+
+			# ----- POPULATE ALL POSSIBLE LETTER PAIRS ----------------------------------------------------
+			# check to see if all possble pairs already populated
+			if not self.allPossibleGlyphPairs:
+				self.allPossibleGlyphPairs = self._determineAllPossibleLetterPairsWithKerning()
+			# make sure there's at least one possible letter pair
+			else:
+				# get a list of the glyph pairs and show in list
+				self.allPossibleLetterPairs = self._getCleanPossibleGlyphPairs( self.allPossibleGlyphPairs )
+				self.w.showAllLetterPairsWithKerning.set( self.allPossibleLetterPairs )
+
+			# ----- POPULATE ALL MATCHING WORDS WITH LETTER PAIR ------------------------------------------
 			# check to see if we've already searched for all matching words
 			if not self.allMatchingWords:
 				self.allMatchingWords = self._determineMatchingWordsContaining( leftGlyphName, rightGlyphName )
-
 			# make sure there are at least some words to show
-			if self.allMatchingWords:
+			else:
 				# fill the list of matching words (unfiltered)
-				self.w.showCurrentLetterPairWords.set( self.allMatchingWords )
+				self.w.showAllMatchingWords.set( self.allMatchingWords )
 
-			# ----- Redraw & Finish Glyphs App updating ------------------------------
+			# ----- Redraw & Finish Glyphs App updating ---------------------------------------------------
 			Glyphs.redraw()
 			# set Flag update complete
 			self.updating = False
 
-	# ----------------------------------------------------------------------------------------------------
+	# -----------------------------------------------------------------------------------------------------
 	# CALLBACKS: GENERAL APP callbacks
 
 	# every time the Glyphs App saves
 	def documentWasSaved(self, passedobject):
+		# update app for now
 		self.updateAppUI()
 
 	# every time the Glyphs App tries to reload
 	def drawBackground(self, layer, info):
+		# pass for now
 		pass
 
 	# when the window closes, unsubscribe from events
 	def closeCleanUp(self, sender):
 		Glyphs.removeCallback( self.documentWasSaved, DOCUMENTWASSAVED )
 		Glyphs.removeCallback( self.drawBackground, DRAWBACKGROUND )
-		print 'KernBot Window Closed'
+		print "KernBot Window Closed"
 
-	# ----------------------------------------------------------------------------------------------------
+	# -----------------------------------------------------------------------------------------------------
 	# CALLBACKS: UPDATE TAB to display strings of letters
 
 	# open new tab with current letter pair
@@ -365,8 +408,8 @@ class KernBot:
 		# first make sure the UI state is current
 		self.updateAppUI()
 		# get layer of current glyphs
-		currentLeftLetter = self._getCurrentLayerForLetter(side='left')
-		currentRightLetter = self._getCurrentLayerForLetter(side='right')
+		currentLeftLetter = self._getCurrentLayerForLetter(side="left")
+		currentRightLetter = self._getCurrentLayerForLetter(side="right")
 		# make list of all letters to draw
 		allLetters = [currentLeftLetter, currentRightLetter]
 		# draw letters to current tab open
@@ -378,79 +421,86 @@ class KernBot:
 		self.updateAppUI()
 		# pull from all matching words list
 		if self.allMatchingWords:
+			# all letters to draw
+			allLetters = []
+			selectedWordLetters = None
+			selectionMax = 5
 			# select top item in list if item not already selected
 			if not sender.getSelection():
 				sender.setSelection([0])
-				matchingWordSelect = 0
+				possibleMatchesSelection = [0]
 			else:
-				matchingWordSelect = sender.getSelection()[0]
-			# randomly get one word out of list
-			#selectedWord = random.choice(self.allMatchingWords)
-			# get the word selected to be drawn
-			selectedWord = self.allMatchingWords[ matchingWordSelect ]
-			# format all chars glyphs
-			allChars = []
-			for currentChar in selectedWord:
-				allChars.append( self.font.glyphs[currentChar] )
-			# get all letter glyph layers to draw
-			allLetters = []
-			for cGlyph in allChars:
-				# get current glyph layer
-				currentLetter = self._getCurrentLayerForLetter(cGlyph=cGlyph)
-				allLetters.append( currentLetter )
+				possibleMatchesSelection = sender.getSelection()[:selectionMax]
+			# multiple selection
+			if len(possibleMatchesSelection) > 1:
+				# get subset of selected words
+				for sWordIndex in possibleMatchesSelection:
+					selectedWord = self.allMatchingWords[ sWordIndex ]
+					selectedWordLetters = self._getWordLettersToDraw( selectedWord )
+					# add all word letters to end of letters list, then add space
+					allLetters += selectedWordLetters
+					allLetters += [self.spaceLetter]
+
+			# single selection
+			else:
+				# get the word selected to be drawn
+				selectedWord = self.allMatchingWords[ possibleMatchesSelection[0] ]
+				selectedWordLetters = self._getWordLettersToDraw( selectedWord )
+				# add all word letters to end of letters list, then add space
+				allLetters += selectedWordLetters
+				allLetters += [self.spaceLetter]
 			# draw letters to current tab open
 			self._drawGlyphLayersToScreen( allLetters )
+
+	# get a random word from list of all matching words and draw to tab
+	def drawRandomSelectedMatchingWord(self, sender):
+		# first make sure the UI state is current
+		self.updateAppUI()
+		# pull from all matching words list
+		if self.allMatchingWords:
+			# randomly get one word out of list
+			selectedWord = random.choice(self.allMatchingWords)
+			selectedWordLetters = self._getWordLettersToDraw(selectedWord)
+			# draw letters to current tab open
+			self._drawGlyphLayersToScreen( selectedWordLetters )
 			# get & set cursor position to position of letter pair in word
 			cursorPos = self._getCursorPositionOfPair( selectedWord )
 			self._setCursorPositionOfPair(cursorPos)
-
-	# open new tab with a spacing string that uses the kerning pair
-	def drawCurrentPairInSpacingString(self, sender):
+	
+	# open new tab with all possible letter combinations that use the current kerning pair 	
+	def drawSelectedAllPossibleLetterPairsWithKerning(self, sender):
 		# first make sure the UI state is current
 		self.updateAppUI()
-		# get layer of current glyphs
-		currentLeftLetter = self._getCurrentLayerForLetter(side='left')
-		currentRightLetter = self._getCurrentLayerForLetter(side='right')
-		# make list of all letters to draw
-		allLetters = []
-		numTimes = 10
-		for cIndex in range(1, numTimes):
-			allLetters.append( currentLeftLetter )
-			allLetters.append( currentRightLetter )
-		# draw letters to current tab open
-		self._drawGlyphLayersToScreen( allLetters )
-
-	# open new tab with all possible letter combinations that use the current kerning pair 
-	def drawAllPossibleLetterPairsWithKerning(self, sender):
-		# gather char information
-		allLeftChars = self._getGlyphNamesListFromObj( self._getGlyphsWithKernKey('L', self.actvLeftKernKey) )
-		allLeftChars.sort(key=lambda x:(x.islower(), x))
-		allRightChars = self._getGlyphNamesListFromObj( self._getGlyphsWithKernKey('R', self.actvRightKernKey) )
-		allRightChars.sort(key=lambda x:(x.islower(), x))
-		# make list of all possible chars
-		allChars = []
-		for leftChar in allLeftChars:
-			for rightChar in allRightChars:
-				allChars.append( self.font.glyphs[leftChar] )
-				allChars.append( self.font.glyphs[rightChar] )
-		# make list of all possible kern pair combination
-		LPcount = 1
-		spaceEvery = 2
-		allLetters = []
-		for cGlyph in allChars:
-			# get current glyph layer
-			currentLetter = self._getCurrentLayerForLetter(cGlyph=cGlyph)
-			allLetters.append( currentLetter )
-			# add glyph spacer every
-			if LPcount == spaceEvery:
-				allLetters.append( self.spaceLetter )
-				LPcount = 1
+		# pull from all possible glyph pairs
+		if self.allPossibleGlyphPairs:
+			# all letters to draw
+			allLetters = []
+			# select top item in list if item not already selected
+			if not sender.getSelection():
+				sender.setSelection([0])
+				possiblePairsSelection = [0]
 			else:
-				LPcount += 1
-		# draw letters to current tab open
-		self._drawGlyphLayersToScreen( allLetters )
+				possiblePairsSelection = sender.getSelection()
+			# multiple selection
+			if len(possiblePairsSelection) > 1:
+				# loop through each selected pair
+				multipleGlyphPairs = self.allPossibleGlyphPairs[ possiblePairsSelection[0]:possiblePairsSelection[-1]+1 ]
+				for gPair in multipleGlyphPairs:
+					# add pair and space to all letters
+					allLetters.append( self._getCurrentLayerForLetter(cGlyph=gPair[0]) )
+					allLetters.append( self._getCurrentLayerForLetter(cGlyph=gPair[1]) )
+					allLetters.append( self.spaceLetter )
+			# single selection
+			else:
+				# get current pair glyph info
+				snglPair = self.allPossibleGlyphPairs[ possiblePairsSelection[0] ]
+				allLetters.append( self._getCurrentLayerForLetter(cGlyph=snglPair[0]) )
+				allLetters.append( self._getCurrentLayerForLetter(cGlyph=snglPair[1]) )
+				allLetters.append( self.spaceLetter )
+			# draw letters to current tab open
+			self._drawGlyphLayersToScreen( allLetters )
 
-	# ----------------------------------------------------------------------------------------------------
+	# -----------------------------------------------------------------------------------------------------
 	# KERN GROUP & GLYPHS ——> callback functions for Lists, Buttons, and TextBox (oh my!)
 
 	# every time either kern group list changes
@@ -465,64 +515,64 @@ class KernBot:
 
 	# LEFT GLYPH decrease right metric multiplier
 	def leftGlyphRightMetricMinus(self, sender):
-		self._adjustLeftGlyphRightMetric(direction='-')
+		self._adjustLeftGlyphRightMetric(direction="-")
 		self.updateAppUI()
 
 	# LEFT GLYPH increase right metric multiplier
 	def leftGlyphRightMetricPlus(self, sender):
-		self._adjustLeftGlyphRightMetric(direction='+')
+		self._adjustLeftGlyphRightMetric(direction="+")
 		self.updateAppUI()
 
 	# RIGHT GLYPH decrease left metric multiplier
 	def rightGlyphLeftMetricMinus(self, sender):
-		self._adjustRightGlyphLeftMetric(direction='-')
+		self._adjustRightGlyphLeftMetric(direction="-")
 		self.updateAppUI()
 
 	# RIGHT GLYPH increase left metric multiplier
 	def rightGlyphLeftMetricPlus(self, sender):
-		self._adjustRightGlyphLeftMetric(direction='+')
+		self._adjustRightGlyphLeftMetric(direction="+")
 		self.updateAppUI()
 
 	# LEFT+RIGHT GLYPH decrease kerning for pair
 	def glyphsKerningPairMinus(self, sender):
-		self._adjustKerningForPair(direction='-')
+		self._adjustKerningForPair(direction="-")
 		self.updateAppUI()
 
 	# LEFT+RIGHT GLYPH increase kerning for pair
 	def glyphsKerningPairPlus(self, sender):
-		self._adjustKerningForPair(direction='+')
+		self._adjustKerningForPair(direction="+")
 		self.updateAppUI()
 
-	# ----------------------------------------------------------------------------------------------------
+	# -----------------------------------------------------------------------------------------------------
 	# METRIC & KERNING METHODS ––> sets new glyph value
 
 	# ADJUST left glyph right metric +/-
-	def _adjustLeftGlyphRightMetric(self, direction='-'):
+	def _adjustLeftGlyphRightMetric(self, direction="-"):
 		# get left glyph layer information
 		leftGlyphLayer = self.actvGlyphLeft.layers[self.selectedMaster.id]
 		leftGlyphRMK = str(self.actvGlyphLeft.rightMetricsKey) if not None == self.actvGlyphLeft.rightMetricsKey else leftGlyphLayer.RSB
 		# if is a mltp of another glyph
 		if type(leftGlyphRMK) == str:
 			# check metric key has mltp attached
-			if '*' in leftGlyphRMK:
-				leftGlyphMMltp = float(leftGlyphRMK.rsplit('*', 1)[-1])
+			if "*" in leftGlyphRMK:
+				leftGlyphMMltp = float(leftGlyphRMK.rsplit("*", 1)[-1])
 			else:
 				leftGlyphMMltp = 1.0
 			# INCREASE OR DECREASE
-			if direction == '-':
+			if direction == "-":
 				NEWleftGlyphMMltp = leftGlyphMMltp - 0.05
-			elif direction == '+':
+			elif direction == "+":
 				NEWleftGlyphMMltp = leftGlyphMMltp + 0.05
-			NEWleftGlyphRMK = unicode((leftGlyphRMK.rsplit('*', 1)[0] + '*' + str(NEWleftGlyphMMltp))[1:], 'UTF-8')
+			NEWleftGlyphRMK = unicode((leftGlyphRMK.rsplit("*", 1)[0] + "*" + str(NEWleftGlyphMMltp))[1:], "UTF-8")
 			# set new RMK for Glyph
 			self.actvGlyphLeft.rightMetricsKey = self.actvGlyphLeft.rightMetricsKey.replace( leftGlyphRMK[1:], NEWleftGlyphRMK )
 		# if is a multiple of the metric spacing unit
 		elif type(leftGlyphRMK) == float:
 			# INCREASE OR DECREASE
-			if direction == '-':
+			if direction == "-":
 				# set new RSB for Glyph
 				leftGlyphLayer.RSB = leftGlyphLayer.RSB - self.mtrcUnit
-			elif direction == '+':
+			elif direction == "+":
 				# set new RSB for Glyph
 				leftGlyphLayer.RSB = leftGlyphLayer.RSB + self.mtrcUnit
 		# sync metrics
@@ -531,32 +581,32 @@ class KernBot:
 				thisLeftGlyphLayer.syncMetrics()
 
 	# ADJUST right glyph left metric +/-
-	def _adjustRightGlyphLeftMetric(self, direction='-'):
+	def _adjustRightGlyphLeftMetric(self, direction="-"):
 		# get right glyph layer information
 		rightGlyphLayer = self.actvGlyphRight.layers[self.selectedMaster.id]
 		rightGlyphLMK = str(self.actvGlyphRight.leftMetricsKey) if not None == self.actvGlyphRight.leftMetricsKey else rightGlyphLayer.LSB
 		# if is a mltp of another glyph
 		if type(rightGlyphLMK) == str:
 			# check metric key has mltp attached
-			if '*' in rightGlyphLMK:
-				rightGlyphMMltp = float(rightGlyphLMK.rsplit('*', 1)[-1])
+			if "*" in rightGlyphLMK:
+				rightGlyphMMltp = float(rightGlyphLMK.rsplit("*", 1)[-1])
 			else:
 				rightGlyphMMltp = 1.0
 			# INCREASE OR DECREASE
-			if direction == '-':
+			if direction == "-":
 				NEWrightGlyphMMltp = rightGlyphMMltp - 0.05
-			elif direction == '+':
+			elif direction == "+":
 				NEWrightGlyphMMltp = rightGlyphMMltp + 0.05
-			NEWrightGlyphLMK = unicode((rightGlyphLMK.rsplit('*', 1)[0] + '*' + str(NEWrightGlyphMMltp))[1:], 'UTF-8')
+			NEWrightGlyphLMK = unicode((rightGlyphLMK.rsplit("*", 1)[0] + "*" + str(NEWrightGlyphMMltp))[1:], "UTF-8")
 			# set new LMK for Glyph
 			self.actvGlyphRight.leftMetricsKey = self.actvGlyphRight.leftMetricsKey.replace( rightGlyphLMK[1:], NEWrightGlyphLMK )
 		# if is a multiple of the metric spacing unit
 		elif type(rightGlyphLMK) == float:
 			# INCREASE OR DECREASE
-			if direction == '-':
+			if direction == "-":
 				# set new LSB for Glyph
 				rightGlyphLayer.LSB = rightGlyphLayer.LSB - self.mtrcUnit
-			elif direction == '+':
+			elif direction == "+":
 				# set new LSB for Glyph
 				rightGlyphLayer.LSB = rightGlyphLayer.LSB + self.mtrcUnit
 		# sync metrics
@@ -565,36 +615,43 @@ class KernBot:
 				thisRightGlyphLayer.syncMetrics()
 
 	# ADJUST kerning value for right+left glyph pair +/-
-	def _adjustKerningForPair(self, direction='-'):
+	def _adjustKerningForPair(self, direction="-"):
 		# set kern direction
 		if direction == "-":
 			kdVal = -1
 		elif direction == "+":
 			kdVal = 1
 		# get current kerning
-		kpVal = Glyphs.font.kerningForPair( self.selectedMaster.id, '@MMK_L_%s' % self.actvLeftKernKey, '@MMK_R_%s' % self.actvRightKernKey )
+		kpVal = Glyphs.font.kerningForPair( self.selectedMaster.id, "@MMK_L_%s" % self.actvLeftKernKey, "@MMK_R_%s" % self.actvRightKernKey )
 		if kpVal > 100:
 			kpVal = -1
 		# calculate the next kernunit interval +/-
 		NEWkpVal = float(int(round(kpVal/self.kernUnit + kdVal ))*self.kernUnit)
 		# set new value for kern pair
-		Glyphs.font.setKerningForPair( self.selectedMaster.id, '@MMK_L_%s' % self.actvLeftKernKey, '@MMK_R_%s' % self.actvRightKernKey, NEWkpVal )
+		Glyphs.font.setKerningForPair( self.selectedMaster.id, "@MMK_L_%s" % self.actvLeftKernKey, "@MMK_R_%s" % self.actvRightKernKey, NEWkpVal )
 
-	# ----------------------------------------------------------------------------------------------------
+	# -----------------------------------------------------------------------------------------------------
 	# UTILITY METHODS ——> return something
 	
 	# returns a list of all glyphs that has the desired kerning group on the specified side
 	def _getGlyphsWithKernKey(self, side, searchForKey):
 		for kGroup in self.kernGroups.keys():
-			findMMK = '@MMK_'+side+'_'+searchForKey
+			findMMK = "@MMK_"+side+"_"+searchForKey
 			if findMMK in kGroup:
 				return self.kernGroups[kGroup]
 
-	# returns the kern key letter as a string (from a unicode u'@MMK_L_v' string ——> 'v')
+	# returns the kern key letter as a string (from a unicode u"@MMK_L_v" string ——> "v")
 	def _getCleanKernKeysAsList(self, uListItems):
 		cleanList = []
 		for lItem in uListItems:
-			cleanList.append( str(lItem.rsplit('_', 1)[-1]) )
+			cleanList.append( str(lItem.rsplit("_", 1)[-1]) )
+		return cleanList
+
+	# returns a list of letter-pairs give a list of glyph pairs
+	def _getCleanPossibleGlyphPairs(self, gListItems):
+		cleanList = []
+		for gItem in gListItems:
+			cleanList.append( str(gItem[0].name+gItem[1].name) )
 		return cleanList
 
 	# returns s list of letter names given a list of GSGlyph obj
@@ -611,16 +668,16 @@ class KernBot:
 				return glyph
 
 	# returns the current layer of the active left glyph
-	def _getCurrentLayerForLetter(self, side='left', cGlyph=None):
+	def _getCurrentLayerForLetter(self, side="left", cGlyph=None):
 		# if want a specific glyph
 		if not None == cGlyph:
 			cGlyphLayer = cGlyph.layers[ self.selectedMaster.id ]
 		else:
 			# default get the current active left glyph
-			if side == 'left':
+			if side == "left":
 				cGlyphLayer = self.actvGlyphLeft.layers[ self.selectedMaster.id ]
 			# otherwise get the current active right glyph
-			elif side == 'right':
+			elif side == "right":
 				cGlyphLayer = self.actvGlyphRight.layers[ self.selectedMaster.id ]
 		# return the letter
 		return cGlyphLayer
@@ -685,11 +742,42 @@ class KernBot:
 					foundWords.append( cWord.upper() )
 		# CASE #ERROR: improper C1 or C2 values
 		else:
-			print('improper C1 or C2 values')
+			print("improper C1 or C2 values")
 		# return random word that matches input
 		return foundWords
 
-	# ----------------------------------------------------------------------------------------------------
+	# iterate through list of glyph names in word and
+	# return list of all letters glyph layer to draw
+	def _getWordLettersToDraw(self, inputWord):
+		# format all chars glyphs in word
+		allChars = []
+		for currentChar in inputWord:
+			allChars.append( self.font.glyphs[currentChar] )
+		# get all letter glyph layers to draw
+		allLetters = []
+		for cGlyph in allChars:
+			# get current glyph layer
+			currentLetter = self._getCurrentLayerForLetter(cGlyph=cGlyph)
+			allLetters.append( currentLetter )
+		# return the list of all letter layers to draw
+		return allLetters
+
+	# return a list of all possible combinations of the current left/right kern key pair
+	def _determineAllPossibleLetterPairsWithKerning(self):
+		# gather char information
+		allLeftChars = self._getGlyphNamesListFromObj( self._getGlyphsWithKernKey("L", self.actvLeftKernKey) )
+		allLeftChars.sort(key=lambda x:(x.islower(), x))
+		allRightChars = self._getGlyphNamesListFromObj( self._getGlyphsWithKernKey("R", self.actvRightKernKey) )
+		allRightChars.sort(key=lambda x:(x.islower(), x))
+		# make list of all possible chars
+		allCombinations = []
+		for leftChar in allLeftChars:
+			for rightChar in allRightChars:
+				allCombinations.append( (self.font.glyphs[leftChar], self.font.glyphs[rightChar]) )
+		# return list of all pairs
+		return allCombinations
+
+	# -----------------------------------------------------------------------------------------------------
 	# DRAW METHODS ——> does something with the GlyphsApp EditViewController
 
 	# draw a list of GSLayer objs with the current active KernBot TAB
@@ -711,7 +799,8 @@ class KernBot:
 		Glyphs.font.currentTab.textCursor = posIndex
 		return True
 
-	# ----------------------------------------------------------------------------------------------------
+	# -----------------------------------------------------------------------------------------------------
 
-# run
+# ---------------------------------------------------------------------------------------------------------
+# RUN KERNBOT.IO
 KernBot()
