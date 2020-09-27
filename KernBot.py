@@ -13,8 +13,8 @@ from vanilla.test.testAll import Test
 
 # return a dictionary of all english words
 ALL_WORDS = []
-WORD_SRC = './resources/words_dictionary.txt'
-with open(WORD_SRC) as json_words:
+OXFORD_SRC = './resources/OxfordEnglishDictionary.txt'
+with open(OXFORD_SRC) as json_words:
 	ALL_WORDS = json.load(json_words)
 
 # returns dictionary of all Kerning Group Keys and a list of associated glyphs
