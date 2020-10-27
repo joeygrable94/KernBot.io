@@ -1,0 +1,563 @@
+Biobliography of Sources + KEY
+[#] = page number from source
+
+
+
+
+
+-------------------------------------------------------
+HISTORY AND THEORY:
+
+-------------------------------------------------------
+Writing & Illumination & Lettering (2)
+by Edward Johnston ------------------------------------
+
+letters of a word are fitted together so that there is a general evenness [77]
+
+It is worth nothing, however, that the white interspaces vary slightly, while the actual distances between the letters vary considerably, according to whether the adjacent strokes curve (or slant) away or are perpendicular (fig. 53, 152) [77]
+
+On spacing of adjacent curved strokes:
+... two curved letters are made very near each other, and that two straight strokes are spaced well apart. [77]
+
+On spacing of adjacent veritcal strokes:
+If the curves are too far apart there will be spots of light, and where several heavy stems are made too close together, 'blots' of dark, marring the evenness of the page. [77]
+
+FIG 53
+KEY		KERN SPACE DESC.
+|_|		straight coupled (greatest distance b/w)
+||		straight not coupled (less distance b/w)
+|_O		straight coupled to curved
+|O		straight and curved not coupled
+OO		two curved (least distance b/w)
+
+
+
+
+
+-------------------------------------------------------
+The Stroke (6)
+by Gerrit Noordzij ------------------------------------
+
+FIG 1.1
+the light shape = the white of the letter (surrounding the stroke)
+the dark shape = the black of the letter (the stroke)
+
+The black shape cannot be altered without the enclosed white shape changing and wice versa. [13]
+
+FIG 1.2
+... the relation of [exterior] shape to the surface area of the interior shape change[s]. [13-14]
+
+A word usually consists of two of more adjacent letters. [14]
+
+FIG 1.3
+Maintaining the equillibrium in the white shapes makes all the difference. The white of the word is my only holdfast. [14]
+
+The relation between shape and countershape, which in writing amounts to the relation between white and black, is the foundation of perception... The interaction between light and dark exists wherever and whenever there is something to see, but the game only becomes interesting when the opponents are well matching — I can only experience the relationshop if the relationship is clear. [15]
+
+Manifest relationships can be divided into groups. The format of the page derives its meaning mainly from the shape and placement of the text block; the blackness and length of the line are in interaction with the white between the lines; and the forms of the letter variously affect each other within the variable contexts of the word. [15]
+
+The word is the smallest organic unit in writing. Whatever can be said about a letter or the stroke must be said with one eye on the word. In this book I pull apart the organism, but only to be able to make the word. [15]
+
+The various kinds of writing with their various constructions and their various strokes can be compared with each other only in terms of the white of the word — every comparison requires a vantage point that makes things comparable. The white of the word is the only thing all the various kinds of writing have in common. [15]
+
+The academic study ofwriting is coerced into separating the consideration of handwriting from a history of type. [16]
+
+This may appear immoderate, but what is western civilization if not the cultural community that avails itself of western writing? Pedagogues pride themselves on the fact that they do not burden school children with an introduction to writing. In so doing they undermine western civilization at its foundation. [16]
+
+The frightening increase in illiteracy begins with the neglect of writing in the schools. This threat to civilization goes together with the differentiation of the writing disciplines. [17]
+
+It is no exaggeration to say that the school teacher only allows bad handwriting, because he or she regards good handwriting as 'drawn' instead of "written". [17]
+
+When the facts still compel us to compare type with handwriting, the facts are suppressed. The history of the 'romain du roi' is a good example of this. The 'romain du roi' was cut around 1700 according to the directives of a scientific commission. The proposal was worked out on a grid the traditional way of transposing drawings to scale. The minutes of the commission confirm what anyone can ascertain: the designs follow in detail the handwriting of Nicholas Jarry, who worked around 1650 as calligrapher for the Cabinet du Roi. This history leaves us no other choice than to view the 'romain du roi' the type in terms of the handwriting ofJarry. But if this were the case the foundation beneath the sciences of writing would fall away. Scholars forestall the landslide by keeping the affair under wraps. In its place they present the 'romain du roi' as a turning point in history. The grid would then have had to have been the true starting point of the design, and the typographical letter would have become, once and for all, independent of handwriting. [17]
+
+It is impossible to say anything about the autonomous typographic letter without calling to mind this historiographic falsification. [18]
+
+Scholars revert to (falsification) when the theory on which they have spent a lifetime threatens to be swept away. Studies of the typographic letter and pedagogy readily occasion forgetting, overlooking or obscuring the actual facts because the view of writing of these disciplines is keyed to the view that the typographic letter and informal handwriting are autonomous. And this point of departure can only be maintained at the cost of the facts. [18]
+
+
+
+
+
+-------------------------------------------------------
+The History and Technique of Lettering (4)
+by Alexander Nesbitt ----------------------------------
+
+On page 221 Nesbitt illustrates "Six simple strokes" as components of all letter forms for the Roman alphabet:
+\\\ diagonal (down)
+||| vertical 
+OOO curve (LSB)
+OOO curve (RSB)
+/// diagonal (up)
+--- horizontal
+[221]
+
+The effect of the even color over a whole panel is obtained by keeping, as nearly as possible, the same area of white between each letter and its neighbor; but the shape of this area [226]
+
+FIG on PG. 227 => a = b = c = d = e, etc.
+One method of arranging letters is called the "counter system". The counter [is] defined as the white area enclosed in the letter design... This system proposes a balancing of the areas between letters with the areas represented by the open counters. [226]
+
+The lettering artist uses a combination of these system, plus a well-trained eye and taste. [226]
+
+General Spacing Rules:
+- The area allowed between capitals should approximate their counters;
+- a good basic rule of thumb is the 'neutralize the O'.
+[on inter-word spacing]
+- The same general rules apply to the small letter.
+- Between words, a break of one full 'o' is usually sufficient;
+[on inter-linear spacing]
+- Between lines a minimum distance at least as great should be allowed.
+- Lines of lower-case of italics should never be planned so that ascenders and descenders could touch or interlock.
+- Lines of capitals may be brought closer together—then give a strong, horizontal decorative effect.
+[228]
+
+
+
+
+
+-------------------------------------------------------
+PRACTICAL EXAMPLES:
+
+-------------------------------------------------------
+Calligraphic Lettering (1)
+by Ralph Douglass -------------------------------------
+
+[Letters] should be spaced as to present an even tone.
+Spacing is not a matter of mechanics but rather of feeling and taste.
+
+rule of thumb:
+- The greatest distance is left between two straight strokes
+	|| as in HILL
+- A curved stroke next to a straight one is a little bit closer
+	O| as in JOIN
+- Two curved strokes are still closer
+	OO as in BOOK
+- Two points are placed as close together as possible
+	CALVERT
+- A points or curve (as in the tail of the L or R) can be tucked under.
+	C A L V E R T
+
+
+
+
+
+-------------------------------------------------------
+Calligraphy Samples on Spacing Exercises (4)
+by Josef V. Venker, S.J. Seattle, WA (2016) -----------
+
+Spacing:
+When spacing weighted Roman capitals, as with any script, make sure that the space inside and between letters appears equal along the writing line.
+
+Weighted letters should be spaced slightly closer than skeleton letters. This is because the weight of the broad nib slightly reduces the counter space (the space enclosed inside a letter) in a weighted letter compared with that in a skeleton letter of the same height.
+
+Establishing the area of space between the letters in the "H I O C" diagram will help you develop accurate, even spacing when writing with a broad-nibbed pen.
+
+1.	Rule lines to a height of 7 nib widths of a Mitchell's No. 11⁄2nib.
+2.	Write the H and place an I next to it slightly closer than the width of the H counter
+3.	Place an O slightly closer still, and a C even closer. Because curved letters allow slightly morespace between letters at top and bottom, they need to be placed a little closer to adjacent letters to create equal interletter space.
+4.	Rewrite the "H I O C diagram several times (shading the area between the letters) to check that you can reproduce the same letter widths and spacing each time.
+
+Practice Words: HIOC, NAVE, CATTLE, doodle
+
+
+
+
+
+-------------------------------------------------------
+TECHNICAL APPLICATION:
+
+-------------------------------------------------------
+Type Design School (3)
+by Richard Poulin -------------------------------------
+
+Proper and appropriate spacing not only affects the legibility and readability of type, but, more importantly, the overall meaning of any visual communication that uses type as its primary communicative element. [165]
+
+Specific criteria for evaluating and determining proper and effective spacing... by the following methods—letter spacing, kerning, word spacing, and line spacing [165]
+
+
+
+
+
+-------------------------------------------------------
+Type Tricks (10)
+by Sofie Beier ----------------------------------------
+
+Words are designed out of three basic design elements. One is the letter forms, the other is the counter form within the letter forms, and the third is the space between the ltter forms. [126]
+
+To create optimal texture, without clusters of dark and white ares, the amount of space inside a letter and the amount of space between the letters should appear equal. [126]
+
+Since the inside space varies significantly throughout the alphabet, the spacing will also have to vary. [126]
+
+... adjust the spacing of the individual letter optically to make it appear to be centered between any adjoining letters. [127]
+
+Components of Spacing an Individual Letter:
+- Left-side bearing
+- Character width
+- Right-side bearing
+- Left-side bearing of next character
+[127]
+
+Try to think of the area as container that you are filling with sand. The Container inside the letters and the container between the letters should contain an approximately even amount of sand. [130]
+
+Metrics and Kerning:
+metric setting should always be in place before you begin to work on the kerning setting. If you kern too early in the process, you risk producing too many kerning pairs in order to compensate for badly define metric values. [133]
+
+
+
+
+
+-------------------------------------------------------
+Letters of Credit (?)
+by Walter Tracy ----------------------------------------
+
+Uppercase metrics
+Divide the letters into the following groups:
+	Straight verical strokes:
+		H B D E F I J K L M N P R U
+	Round strokes:
+		O C D G P Q
+	Triangular letters:
+		A V W X Y
+	The off ones:
+		S T Z
+The standard letters of the uppercase alphabet are: H O
+[S. Beier, 136]
+
+Walter Tracy recommends to apply the following values: [S. Beier, 140]
+	1. Same as 'H'
+	2. Slightly less than 'H'
+	3. About half of 'H'
+	4. Minimum space
+	5. Same as 'O'
+	6. Spaced visually between standard letters
+	----------
+	4 - A - 4
+	1 - B - 3
+	5 - C - 3
+	1 - D - 5
+	1 - E - 3
+	1 - F - 3
+	5 - G - 2
+	* - H - *
+	1 - I - 1
+	4 - J - 1
+	1 - K - 4
+	1 - L - 4
+	2 - M - 1
+	2 - N - 2
+	* - O - *
+	1 - P - 5
+	5 - Q - 5
+	1 - R - 4
+	6 - S - 6
+	4 - T - 4
+	1 - U - 2
+	4 - V - 4
+	4 - W - 4
+	4 - X - 4
+	4 - Y - 4
+	3 - Z - 3
+
+Lowercase metrics
+Divide the letters into the following groups:
+	Straight verical strokes:
+		b d h i j k l m n p q r u
+	Round strokes:
+		b c d e o p q
+	Triangular letters:
+		v w x y
+	The off ones:
+		a f g s t z
+The standard letters of the uppercase alphabet are: n o
+[S. Beier, 142]
+
+Walter Tracy recommends to apply the following values: [S. Beier, 146]
+	1. Same as the left side of 'n'
+	2. Same as the right side of 'n'
+	3. Slightly more than the left side of 'n'
+	4. Minimum space
+	5. Same as 'o'
+	6. Slightly less than 'o'
+	7. Spaced visually between standard letters
+	----------
+	7 - a - 7
+	1 - b - 5
+	5 - c - 6
+	5 - d - 1
+	5 - e - 6
+	7 - f - 7
+	7 - g - 7
+	3 - h - 2
+	3 - i - 1
+	1 - j - 1
+	3 - k - 4
+	3 - l - 1
+	1 - m - 2
+	* - n - *
+	* - o - *
+	3 - p - 5
+	5 - q - 1
+	2 - r - 4 
+	7 - s - 7
+	7 - t - 7
+	2 - u - 2
+	4 - v - 4
+	4 - w - 4
+	4 - x - 4
+	4 - y - 4
+	7 - z - 7
+
+
+
+
+
+-------------------------------------------------------
+Designing Type (6)
+by Karen Cheng ----------------------------------------
+
+Letter Sidebearings:
+
+There are two components that set the initial letterspacing in a font: the left and right sidebearings. [220]
+
+When type blocks were set side-by-side to make words, the sidebearings (the distance between the character and the ends of the block) created the appropriate spacing.
+It was easy to increase letterspacing by inserting blank metal strips, but reducing space was far more tedious, as the sides of each block had to be filed away.
+Of course, in the digital world, this physical constraint has vanished. [220]
+
+The main principle is simple: sidebearings are proportional to counters and letter profiles. [220]
+
+[examples]
+Univers (Neo-Grotesque)
+	Space between two H forms = 50% of H counterspace
+	Space between two n forms = 58% of n counterspace
+
+Adobe Garamond (Garalde)
+	Space between two H forms= 67% of H counterspace
+	Space between two n forms = 94% of n counterspace
+[220]
+
+Spacing Capital Letters (step-by-step) [221]
+	(1) Set the left and right sidebearings of the H. Each sidebearing is 25 - 50% of the width between the stems. Sans serifs have tighter spacing than serif fonts.
+	(2) Test the sidebearings of the H by setting the word 'HHHH'. The letters should be harmonious - not too open or cramped.
+	(3) Set the left and right sidebearings of the 0. These sidebearings are slightly less than the sidebearings of the H.
+	(4) Test the O by setting the word 'HOH'. The O should appear balanced between the two H forms, and the colour of the word should be even. If not, revise the sidebearings of the 0 .
+	(5) Re-test the Oby setting the word 'HHOOHH'. Again, all six letters should be harmonious, and the colour of the word should be even. If not, revise the sidebearings of the 0. The initial H may also require readjustment.
+	(6) Once the H and O are satisfactory, the other upper case sidebearings can be set as follows:
+
+	1 = Equal to the sidebearing of the H
+	2 = Slightly less than the sidebearing of the H 3 Half of the sidebearing of the H
+	4 = Minimum sidebearing
+	5 = Equal to the sidebearing of the 0
+	* = Must be adjusted visually
+
+	Diagonal and open letters with minimum space:
+	4 - A - 4
+	4 - V - 4
+	4 - W - 4
+	4 - X - 4
+	4 - Y - 4
+	4 - T - 4
+	4 - J - 1
+
+	Straight sided letters with heavy verticals:
+	1 - D - 5
+	1 - P - 5
+	1 - R - 4
+	1 - L - 4
+	1 - K - 4
+	1 - B - 3
+	1 - E - 3
+	1 - F - 3
+	1 - U - 2
+	1 - I - 1
+
+	Straight sided letters with light verticals:
+	2 - N - 2
+	2 - M - 1
+
+	Letters with round sides:
+	5 - Q - 5
+	5 - C - 3
+	5 - G - 2
+
+	Letters with a central spine:
+	3 - Z - 3
+	* - S - *
+
+Spacing Lower Case Letters (step-by-step) [221]
+	(1) Set the left and right sidebearings of the n. The right sidebearing will be slightly thinner than the left, since the arched corner is lighter than the vertical stem. The left sidebearing is 25 - 50% of the n counter.
+	(2) Test the sidebearings of then by setting the word 'nnnn'. The word should be even in colour, and neither tight nor loose.
+	(3) Set the left and right sidebearings of the o. The sidebearings of the o are smaller than those of the n.
+	(4) Test the o by setting the word 'non'. The o should appear balanced between the n forms, and the colour of the word should be even. If not, revise the sidebearings of the o.
+	(5) Re-test the o by setting the following words: 'nnonn' 'nnonon' 'nnoonn'. Adjust sidebearings of the o and/or n as necessary.
+	(6) Once the n and o are satisfactory, the other lower case sidebearings can be set as follows:
+
+	1 Equal to the left sidebearing of the n
+	2 Equal to the right sidebearing of the n
+	3 Slightly more than the left sidebearing of the n
+	4 Minimum sidebearing
+	5 Equal to the sidebearing of the o
+	6 Slightly less than the sidebearing of o
+	* Must be adjusted visually
+
+	Diagonal letters with minimum space:
+	4 - v - 4
+	4 - w - 4
+	4 - x - 4
+	4 - y - 4
+
+	Letters with short vertical stems:
+	1 - r - 4
+	1 - m - 2
+	1 - j - 1
+	2 - u - 2
+
+	Letters with tall vertical stems:
+	1 - b - 5
+	3 - p - 5
+	3 - k - 4
+	3 - l - 2
+	3 - h - 2
+	3 - i - 1
+
+	Letters with round sides:
+	5 - c - 6
+	5 - e - 6
+	5 - q - 1
+	5 - d - 1
+
+	Irregularly shaped letters:
+	* - g - *
+	* - a - *
+	* - s - *
+	* - z - *
+	* - f - *
+	* - t - *
+
+Word Space, Numbers and Punctuation:
+- The space must be wide enough to separate individual words, but narrow enough to encourage grouping into sentences and paragraphs.
+- Traditionally, the word space was about half an em (en)
+- [in] contemporary type... word space [is] slightly less than the width of an i - about half an en, or a quarter of an em.
+- Light or expanded typefaces usually need more space to complement their wider counters.
+- Bold or condensed designs look better with a tighter word space.
+[224]
+
+[numbers and punctuation] characters are usually centred within fixed widths to simplify their settings (and facilitate tabular alignments). [224]
+
+Kerning:
+This is merely a starting point; a modern font may have 500-3000 kerning pairs. [226]
+
+Thomas Phinney recommends no more than 3000 kern pairs in a font, because larger numbers increase the size of font files and, more critically, overwhelm the processing capacity of many publishing applications. [226]
+
+***
+CLASS BASED KERNING
+- Open Type, a new font format developed jointly by Adobe Systems and Microsoft, uses class-based kerning rather than pairs.
+- Class-based kerning requires the definition of several groups (or classes) of similarly shaped letters.
+- A single value can be propagated to the entire class.
+- Many individual instances are replaced with a more efficient array... [a concept] similar to style sheets.
+- A powerful, time-saving tool, but requires careful planning.
+- Mistakes in class definition can result in unforeseen and undesirable kerns.
+
+Not all applications recognize or implement the kerning information imbedded in a font. For this reason, most designers view the initial spacing created by sidebearings as more important than kerning. Kerning is a support and refinement of the initial spacing.
+***
+
+In general, the most problematic characters to space are the open-sided and diagonal forms [rt jf vwy LT JP VAWY 47].
+
+The exact number of kerning pairs depends on the specific design of the font - consistent forms (i.e., monospaced fonts) require less kerning. The most commonly kerned pairs are listed [below].
+[227]
+
+Upper Case • Upper Case
+	AC AG AO AO AT AU AV AW AY
+	BA BE BL BP BR BU BV BW BY
+	CA CO CR
+	DA DD DE DI DL DM DN DO DP DR DU
+	DV DW DY
+	EC EO
+	FA FC FG FO
+	GE GO GR GU HO
+	IC IG IO
+	JA JO
+	KO
+	LC LG LO LT LU LV LW LY
+	MC MG MO
+	NC NG NO
+	OA OB OD OE OF OH OI OK OL OM ON OP OR OT OU OV OW OX OY
+	PA PE PL PO PP PU PY
+	QU
+	RC RG RY RT RU RV RW RY
+	SI SM ST SU
+	TA TC TO
+	UA UC UG UO US
+	VA VC VG VO VS
+	WA WC WG WO
+	YA YC YO YS
+
+Upper Case • Lower Case
+	Ac Ad Ae Ag Ao Ap Aq At Au Av Aw Ay
+	Bb Bi Bk Bl Br Bu By
+	Ca Cr
+	Da
+	Eu Ev
+	Fa Fe Ff Fi Fo Fr Ft Fu Fy
+	Gu
+	He Ho Hu Hy
+	le Id lq lo It
+	Ja Je Jo Ju
+	Ke Ko Ku Kv Kw Ky
+	Lu Ly
+	Ma Mc Md Me Mo
+	Nu Na Ne Ni No Nu
+	Oa Ob Oh Ok Ol
+	Pa Pe Po
+	Rd Re Ro Rt Ru
+	Si Sp Su
+	Ta Tc Te Ti To Tr Ts Tu Tw Ty
+	Ua Ug Um Un Up Us
+	Va Ve Vi Vo Vr Vu Vy
+	Wa Wd We Wi Wm Wr Wt Wu Wy
+	Xa Xe Xo Xu Xy
+	Yd Ye Yi Yp Yu Yv
+
+Lower Case • Lower Case
+	ac ad ae ag ap af at au av aw ay ap
+	bl br bu by
+	ca ch ck
+	da de de dg do dt du dv dw dy
+	ea ei el em en ep er et eu ev ew ey
+	fa fe ff fi fl fo
+	ga ge gh gl go gg
+	he hd he hg ho hp ht hu hv hw hy
+	ic id ie ig io ip it iu iv
+	ja je jo ju
+	ka kc kd ke kg ko
+	la le Id le If lg lo Ip lq lu Iv lw ly
+	ma me md me mg mn mo mp mt mu mv my
+	nc nd ne ng no np nt nu nv nw ny
+	ob of oh oj ok ol om on op or ou
+	pa ph pi pl pp pu
+	qu
+	ra rd re rg rk rl rm rn ro rq rr rt rv ry
+	sh st su
+	td ta te to
+	ua uc ud ue ug uo up uq ut uv uw uy
+	va vb vc vd ve vg vo vv vy
+	wa wx wd we wg wh wo
+	xa xe xo
+	ya ye yd ye yo
+
+Upper Case • Punctuation
+	apostrophe: A' L' and 'S
+	quotes: A" L"
+	period: B. C. D. F. J. N. O. P. S. T U. V. W. Y.
+	comma: B, C, D, F, J, N, O, P, S, T, U, V, W, Y, 
+	semicolon: F; P; T; V; W; Y;
+	colon: F: P: T: V: W: Y:
+	hyphen: T- V- W- Y-
+
+Lower Case • Punctuation
+	apostrophe: f' and 's 't
+	period: b. d. e. f. g. j. o. p. r. s. t. v. w. y.
+	comma: b, d, e, f, g, j, o, p, r, s, t, v, w, y,
+	hyphen: r-
+
+
+
+

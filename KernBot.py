@@ -16,24 +16,27 @@ www.JoeyGrable.com
 """
 
 # ---------------------------------------------------------------------------------------------------------
-# HELP DOCS
+# DEV HELP DOCS
 # https://docu.glyphsapp.com/
 # https://ts-vanilla.readthedocs.io/en/latest/objects/List.html#list-item-cells
 
+# PATH TO GLYPHS APP SCRIPT FILES
+# ~/Library/Application Support/Glyphs/Scripts
+
 # ---------------------------------------------------------------------------------------------------------
 # IMPORTS
-
 import os
 import math
 import json
 import random
+# & DEPENDENCIES
 from vanilla import FloatingWindow, TextBox, List, RadioGroup, EditText, CheckBox, Button, VerticalLine, HorizontalLine
 from vanilla.test.testAll import Test
 
 # ---------------------------------------------------------------------------------------------------------
 # GLOBAL DATA SETS
 
-# return a dictionary of all english words
+# return a dictionary of over 300,000 words from the Oxford English Dictionary
 ALL_WORDS = []
 OXFORD_SRC = "./resources/OxfordEnglishDictionary.txt"
 with open(OXFORD_SRC) as json_words:
@@ -214,6 +217,8 @@ class KernBot:
 
 		# -------------------------------------------------------------------------------------------------
 		# addCallbacks and listen to CONSTANTS
+		Glyphs.addCallback( self.documentWasSaved, DOCUMENTWASSAVED )
+		Glyphs.addCallback( self.drawBackground, DRAWBACKGROUND )
 		
 		# load initial ALL_WORDS dataset
 		self.allMatchingWords = []
@@ -398,7 +403,6 @@ class KernBot:
 	def closeCleanUp(self, sender):
 		Glyphs.removeCallback( self.documentWasSaved, DOCUMENTWASSAVED )
 		Glyphs.removeCallback( self.drawBackground, DRAWBACKGROUND )
-		print "KernBot Window Closed"
 
 	# -----------------------------------------------------------------------------------------------------
 	# CALLBACKS: UPDATE TAB to display strings of letters
